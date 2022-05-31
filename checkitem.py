@@ -10,7 +10,7 @@ num4=0
 
 
 
-#대여/반납
+#대여/반납 알고리즘
 def rentalAndReturn(button, n):
     global num1
     global num2
