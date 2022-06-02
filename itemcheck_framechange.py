@@ -33,10 +33,16 @@ def rentalAndReturn(button, n):
         elif n == 4:
             num4 = num4 - 1
 
-        button9.configure(text=str(num1)+"/5")
-        button10.configure(text=str(num2) + "/5")
-        button11.configure(text=str(num3) + "/5")
-        button12.configure(text=str(num4) + "/5")
+        usingFont = font.Font(family='Helvetica', size="20")
+
+        button9 = Button(win, text=str(num1) + "/5", font=usingFont)
+        button10 = Button(win, text=str(num2) + "/5", font=usingFont)
+        button11 = Button(win, text=str(num3) + "/5", font=usingFont)
+        button12 = Button(win, text=str(num4) + "/5", font=usingFont)
+        button9.place(x=270, y=200)
+        button10.place(x=270, y=280)
+        button11.place(x=270, y=360)
+        button12.place(x=270, y=440)
 
     else:
         tkinter.messagebox.showinfo("반납", "해당 물품이 반납되었습니다.")
@@ -51,10 +57,16 @@ def rentalAndReturn(button, n):
         elif n == 4:
             num4 = num4 + 1
 
-        button9.configure(text=str(num1) + "/5")
-        button10.configure(text=str(num2) + "/5")
-        button11.configure(text=str(num3) + "/5")
-        button12.configure(text=str(num4) + "/5")
+        usingFont = font.Font(family='Helvetica', size="20")
+
+        button9 = Button(win, text=str(num1) + "/5", font=usingFont)
+        button10 = Button(win, text=str(num2) + "/5", font=usingFont)
+        button11 = Button(win, text=str(num3) + "/5", font=usingFont)
+        button12 = Button(win, text=str(num4) + "/5", font=usingFont)
+        button9.place(x=270, y=200)
+        button10.place(x=270, y=280)
+        button11.place(x=270, y=360)
+        button12.place(x=270, y=440)
 
 
 #이용종료

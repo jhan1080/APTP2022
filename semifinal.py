@@ -207,7 +207,7 @@ def show_page2():
     # Enter 누르면 로그인
     ent2.bind("<Return>", loggedIn())
     # 로그인 버튼 왼쪽 클릭하면 로그인
-    btn.bind("<Button-1>", loggedIn())
+    login.bind("<Button-1>", loggedIn())
 
     if loggedIn() == 1:
         login.configure(state=ACTIVE)

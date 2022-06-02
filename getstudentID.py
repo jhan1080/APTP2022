@@ -22,7 +22,7 @@ else:
 
 ####################################################
 # 런어스 로그인 함수
-def learnus_login():
+def learnus_login(event):
     # 런어스 홈페이지 접속
     driver = webdriver.Chrome(driver_path)
     url = "https://www.learnus.org/"
@@ -51,43 +51,14 @@ def learnus_login():
     login_btn = driver.find_element(By.CSS_SELECTOR, '#ssoLoginForm > div > div.form-group.form-group-submit > input')
     login_btn.click()
 
-    # 수강 과목들 가져오기
+    # 사용자 정보 가져오기
     driver.get("https://www.learnus.org/?lang=")
     learnus_page_source = driver.page_source
     soup = BeautifulSoup(learnus_page_source, 'html.parser')
 
-    course_title_list = soup.select(
-        'div.front-box-body.course_lists > ul > li > div > a > div > div.course-title > h3 ')
-    print("\n수강 과목:")
-    for title in course_title_list:
-        print(title.text)
-
-    # 전체 알림 먼저 들어가기
-    time.sleep(1)
-    notification_btn1 = driver.find_element(By.CSS_SELECTOR,
-                                            '#page-header > div.page-util > div.usermenu > ul > li.nav-item.nav-item-userinfo > button')
-    notification_btn1.click()
-    time.sleep(1)
-
-    notification_btn2 = driver.find_element(By.CSS_SELECTOR,
-                                            '#page-userinfo > div > div.col-3.col-tab > div > a.nav-link.nav-link-noti')
-    notification_btn2.click()
-    time.sleep(1)
-
-    notification_btn3 = driver.find_element(By.CSS_SELECTOR,
-                                            '#mCSB_3_container > div > div.userinfo-title > div > div:nth-child(2) > a')
-    notification_btn3.click()
-
-    # 알림 내용들 가져오기
-
-    driver.get("https://www.learnus.org/local/ubnotification/")
-    notification_page_source = driver.page_source
-    soup = BeautifulSoup(notification_page_source, 'html.parser')
-
-    notification_list = soup.select('#page-content > div > div > div.well.wellnopadding > a > div > div')
-    print("\n공지사항 업데이트:")
-    for list in notification_list:
-        print(list.text)
+    studentid = ent1.get()
+    print("\n사용자 학번:")
+    print(studentid)
 
     while (True):
         if keyboard.is_pressed("esc"):
@@ -101,29 +72,44 @@ def learnus_login():
 def login(event):
     threading.Thread(target=learnus_login).start()
 
-
-def switch_frame(win, frame_class):
-    new_frame = frame_class(win)
-    if win._frame is not None:
-        win._frame.destroy()
-    win._frame = new_frame
-    win._frame.pack()
-
-
 #####################################################
 win = Tk()
 win.geometry("450x750+540+40")
 win.title("대여 물품 현황 알리미 앱")
 win.iconbitmap(default='learnus_logo.ico')
 win.option_add("*Font", "맑은고딕 20")
-lab_d = Label(win)
-background1 = PhotoImage(file="background1.png")
-taptostart = Button(win, image=background1).pack()
+background2 = PhotoImage(file="background2.png")
+lab4=Label(win, image=background2)
+lab4.pack()
+# id 라벨과 입력창
+lab1 = Label(win)
+lab1.config(text="학번")
+lab1.pack()
+lab1.place(x=190, y=320)
+ent1 = Entry(win)
+ent1.pack()
+ent1.place(x=60, y=360)
 
+# pw 라벨과 입력창
+lab2 = Label(win)
+lab2.config(text="비밀번호")
+lab2.pack()
+lab2.place(x=165, y=400)
+ent2 = Entry(win)
+ent2.config(show="*")
+ent2.pack()
+ent2.place(x=60, y=440)
 
+# 로그인 버튼 넣기
+btn = Button(win)
+btn.config(width=10, height=1)
+btn.config(text="로그인")
+btn.pack()
+btn.place(x=140, y=480)
 
-
-
-
+# Enter 누르면 로그인
+ent2.bind("<Return>", learnus_login)
+# 로그인 버튼 왼쪽 클릭하면 로그인
+btn.bind("<Button-1>", learnus_login)
 
 win.mainloop()
